@@ -1,0 +1,3 @@
+## Python requirements (for Ansible controller machine)
+
+jmespath   # required by cloudalchemy.prometheus role
