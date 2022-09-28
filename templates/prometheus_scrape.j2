@@ -1,0 +1,18 @@
+  - job_name: prometheus
+    static_configs:
+      - targets:
+          - "localhost:{{ prometheus_listen_port }}"
+
+  - job_name: node
+    static_configs:
+      - targets:
+        {% for host in groups['all'] %}
+          - "{{ hostvars[host].private_ip_address }}:{{ node_exporter_listen_port }}"
+        {% endfor %}
+
+  - job_name: process
+    static_configs:
+      - targets:
+        {% for host in groups['all'] %}
+          - "{{ hostvars[host].private_ip_address }}:{{ process_exporter_listen_port }}"
+        {% endfor %}
