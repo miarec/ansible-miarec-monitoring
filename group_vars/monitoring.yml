@@ -64,7 +64,7 @@ grafana_datasources:
   - name: Loki
     type: loki
     isDefault: false
-    access: direct
+    access: proxy
     url: 'http://{{ loki_web_listen_address }}'
 
 # DASHBOARDS
