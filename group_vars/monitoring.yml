@@ -29,7 +29,7 @@ prometheus_web_external_url: "https://{{ prometheus_fqdn }}"
 # Loki settings
 # -------------------------------------
 loki_version: "2.4.2"
-loki_local_storage_dir: "etc/loki"
+
 
 loki_http_listen_port: 3100
 loki_grpc_listen_port: 9096
