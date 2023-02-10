@@ -28,7 +28,7 @@ prometheus_web_external_url: "https://{{ prometheus_fqdn }}"
 # -------------------------------------
 # Loki settings
 # -------------------------------------
-loki_version: "2.4.2"
+loki_version: "2.7.3"
 
 
 loki_http_listen_port: 3100
@@ -39,7 +39,7 @@ loki_web_listen_address: "127.0.0.1:{{ loki_http_listen_port }}"
 # -------------------------------------
 # Grafana settings
 # -------------------------------------
-grafana_version: "8.2.5"
+grafana_version: "9.3.6"
 grafana_address: "127.0.0.1"
 grafana_port: "3000"
 grafana_api_url: "http://{{ grafana_address }}:{{ grafana_port }}"
