@@ -1,2 +1,2 @@
 # ansible-miarec-monitoring
-Ansible playbook to deploy Monitoring Stack
+Ansible playbooks install monitoring clients on miarec servers

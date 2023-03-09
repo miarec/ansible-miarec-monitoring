@@ -1,0 +1,184 @@
+# ---
+# # ------------------------------------------------
+# # Install Prometheus
+# # ------------------------------------------------
+# - name: Install Prometheus.
+#   hosts:
+#     - monitoring
+#   become: true
+#   vars:
+#     prometheus_scrape_configs: "{{ lookup('template', 'prometheus_scrape.j2') | from_yaml }}"
+#     process_exporter_listen_port: "9256"
+#     node_exporter_listen_port: "9100"
+#   roles:
+#     - role: cloudalchemy.prometheus
+#   tags: 'prometheus'
+
+# # ------------------------------------------------
+# # Install Grafana
+# # ------------------------------------------------
+# - name: Install Grafana.
+#   hosts:
+#     - monitoring
+#   become: true
+#   roles:
+#     - role: cloudalchemy.grafana
+#   tags: 'grafana'
+
+# # ------------------------------------------------
+# # Install Loki
+# # ------------------------------------------------
+# - name: Install Loki.
+#   hosts:
+#     - monitoring
+#   become: true
+#   pre_tasks:
+#     - name: Update apt cache [Debian].
+#       apt:
+#         update_cache: true
+#         cache_valid_time: 600
+#       when: ansible_os_family == 'Debian'
+#       changed_when: false
+
+#     - name: Install Dependencies.
+#       package:
+#         name: unzip
+#         state: present
+#   roles:
+#     - role: miarec.loki
+#   tags: 'loki'
+
+# # ------------------------------------------------
+# # SSL Configuration
+# # ------------------------------------------------
+# # Install letsencrypt certbot dependencies with nginx plugin
+# - name: Install certbot dependencies.
+#   hosts:
+#     - monitoring
+#   become: true
+#   tasks:
+#     - name: Update apt cache [Debian].
+#       apt:
+#         update_cache: true
+#         cache_valid_time: 600
+#       when: ansible_os_family == 'Debian'
+#       changed_when: false
+
+#     - name: Install dependencies [RedHat].
+#       yum:
+#         name:
+#           - cronie
+#           - epel-release
+#         state: present
+#       when: ansible_os_family == 'RedHat'
+
+#     - name: Install dependencies [Debian].
+#       apt:
+#         name:
+#           - cron
+#           - python3-certbot-nginx
+#         state: present
+#       when: ansible_os_family == 'Debian'
+
+# # Use letsencrypt certbot to generate certificate for grafana
+# - name: Install certbot and generate certificate for Grafana.
+#   hosts:
+#     - monitoring
+#   become: true
+#   # vars_files:
+#   #   - vars/ssl_grafana_vars.yml
+#   vars:
+#     certbot_domain: "{{ grafana_fqdn }}"
+
+#   roles:
+#     - role: geerlingguy.certbot
+#   tags:
+#     - 'ssl'
+
+# # Use letsencrypt certbot to generate certificate for prometheus
+# - name: Install certbot and generate certificate for Prometheus.
+#   hosts:
+#     - monitoring
+#   become: true
+#   # vars_files:
+#   #   - vars/ssl_prometheus_vars.yml
+#   vars:
+#     certbot_domain: "{{ prometheus_fqdn }}"
+#   roles:
+#     - role: geerlingguy.certbot
+#   tags:
+#     - 'ssl'
+
+# # Install nginx and configure vhost to terminate ssl and route traffic to multiple applications
+# - name: Install nginx.
+#   hosts:
+#     - monitoring
+#   become: true
+#   roles:
+#     - role: geerlingguy.nginx
+#   tags:
+#     - 'ssl'
+
+# # ------------------------------------------------
+# # Install Promtail client on all hosts
+# # ------------------------------------------------
+# - name: Install promtail client on all hosts.
+#   hosts: all
+#   pre_tasks:
+#     - name: Install Dependencies
+#       package:
+#         name: unzip
+#         state: present
+#       become: true
+#   vars:
+#     loki_url: "{{ hostvars[groups.monitoring.0].private_ip_address }}"
+#     loki_http_listen_port: 3100
+#     promtail_http_listen_port: 9110
+#     aws_install: true
+#   roles:
+#     - role: miarec.promtail
+
+# ###### This is not great,  its not idempotent, look into registering a variable maybe run when changed??
+#   post_tasks:
+#     - name: Update promtail_env file with EC2 metadata.
+#       become: true
+#       shell: |
+#         echo "SYSTEMD_LOG_LEVEL=debug" > /etc/promtail/promtail-env
+#         echo "EC2_INSTANCE=$(curl -sL http://169.254.169.254/latest/meta-data/instance-id)" >> /etc/promtail/promtail-env
+#         echo "EC2_TAG_NAME=$(curl -sL http://169.254.169.254/latest/meta-data/tags/instance/Name)" >> /etc/promtail/promtail-env
+#         echo "EC2_TAG_ROLE=$(curl -sL http://169.254.169.254/latest/meta-data/tags/instance/Role)" >> /etc/promtail/promtail-env
+#         systemctl restart promtail
+#   tags: 'promtail'
+
+
+# # ------------------------------------------------
+# # Install Node Exporter Client
+# # ------------------------------------------------
+# - name: Install node_exporter on all hosts.
+#   hosts:
+#     - all
+#   become: true
+#   vars:
+#     node_exporter_version: "1.3.0"
+#     node_exporter_listen_port: "9100"
+#     node_exporter_web_listen_address: "0.0.0.0:{{ node_exporter_listen_port }}"
+#   roles:
+#     - role: cloudalchemy.node_exporter
+#   tags:
+#     - 'node_exporter'
+
+# # ------------------------------------------------
+# # Install Process Exporter Client
+# # ------------------------------------------------
+# - name: Install process_exporter on all hosts.
+#   hosts:
+#     - all
+#   become: true
+#   vars:
+#     process_exporter_version: "0.7.10"
+#     process_exporter_listen_port: "9256"
+#     process_exporter_web_listen_address: "0.0.0.0:{{ process_exporter_listen_port }}"
+#   roles:
+#     - role: miarec.process_exporter
+#   tags:
+#     - 'process_exporter'

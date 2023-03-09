@@ -1,0 +1,47 @@
+---
+# ------------------------------------------------
+# Install Prometheus agent
+# ------------------------------------------------
+- name: Install Prometheus Agent.
+  hosts:
+    - prometheus-agent
+  become: true
+  pre_tasks:
+    - name: Update apt cache [Debian].
+      apt:
+        update_cache: true
+        cache_valid_time: 600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+  roles:
+    - role: miarec.prometheus
+
+  tags: 'prometheus'
+
+# ------------------------------------------------
+# Install Montioring clients
+# ------------------------------------------------
+- name: Install Monitoring Clients.
+  hosts:
+    - all
+  become: true
+  pre_tasks:
+    # - include_vars: vars/prometheus.yml
+
+    - set_fact:
+        # promtail_loki_url: "{{ hostvars[groups.loki.0].private_ip_address }}:{{ loki_http_listen_port }}"
+
+    - name: Update apt cache [Debian].
+      apt:
+        update_cache: true
+        cache_valid_time: 600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+  roles:
+    - role: miarec.promtail
+    - role: cloudalchemy.node_exporter
+    - role: miarec.process_exporter
+
+  tags:
