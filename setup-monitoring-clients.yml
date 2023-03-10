@@ -65,8 +65,6 @@
         file: vars/celerybeat.yml
       when: "'celerybeat' in group_names"
 
-
-
     - set_fact:
         promtail_scrape_jobs: >-
               {{ recorder_promtail_scrape_jobs +
@@ -83,26 +81,54 @@
         var: promtail_scrape_jobs
 
     - set_fact:
-        promtail_scrape_jobs: >-
-              {{ recorder_promtail_scrape_jobs +
-              screen_promtail_scrape_jobs +
-              livemon_promtail_scrape_jobs +
-              db_promtail_scrape_jobs +
-              redis_promtail_scrape_jobs +
-              web_promtail_scrape_jobs +
-              celery_promtail_scrape_jobs +
-              celerybeat_promtail_scrape_jobs
+        process_exporter_list: >-
+              {{ all_process_exporter_names +
+              recorder_process_exporter_names +
+              screen_process_exporter_names +
+              livemon_process_exporter_names +
+              db_process_exporter_names +
+              redis_process_exporter_names +
+              web_process_exporter_names +
+              celery_process_exporter_names +
+              celerybeat_process_exporter_names
               }}
 
-    - debug:
-        var: promtail_scrape_jobs
-
-
     - set_fact:
-        process_exporter_names: "{{ lookup('template', 'process_exporter_names.j2') | from_yaml }}"
+        process_exporter_names: |
+          {% raw %}
+            -comm:
+                {% for item in process_exporter_list %}
+                - {{item}}
+                {% endfor %}
+           {% endraw %}
 
     - debug:
         var: process_exporter_names
+
+    # - set_fact:
+    #     proce_exp_name: >-
+    #           {{ celery_process_exporter_names +
+    #           celerybeat_process_exporter_names
+    #           }}
+
+
+    # - debug:
+    #     var: proce_exp_name
+
+    # - set_fact:
+    #     proce_exp_name_2: >-
+    #           {% for item in proce_exp_name %}
+    #           {item}
+    #           {% endfor %}
+
+    # - debug:
+    #     var: proce_exp_name2
+
+    # - set_fact:
+    #     process_exporter_names: "{{ lookup('template', 'process_exporter_names.j2') | from_yaml }}"
+
+    # - debug:
+    #     var: process_exporter_names
 
     - name: Update apt cache [Debian].
       apt:

@@ -1,4 +1,9 @@
 ---
+all_process_exporter_names:
+ - promtail
+ - node_exporter
+ - process_exporter
+
 
 recorder_promtail_scrape_jobs: []
 recorder_process_exporter_names:

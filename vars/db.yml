@@ -1,12 +1,5 @@
 db_promtail_scrape_jobs: []
 
 # Define which process to monitor
-db_process_exporter_names: |
-  {% raw %}
-    - comm:
-        - node_exporter
-        - process_exporter
-        - promtail
-        - postgresql-*
-        - redis_*
-  {% endraw %}
+db_process_exporter_names:
+- postgresql-*

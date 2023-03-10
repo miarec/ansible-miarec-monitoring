@@ -5,14 +5,5 @@ screen_promtail_scrape_jobs: [
 ]
 
 # Define which process to monitor
-screen_process_exporter_names: |
-  {% raw %}
-    - comm:
-        - node_exporter
-        - process_exporter
-        - promtail
-        - celerybeat
-        - celeryd
-        - httpd
-        - miarec_livemon
-  {% endraw %}
+screen_process_exporter_names:
+- miarec_screen
