@@ -82,7 +82,7 @@
 
     - set_fact:
         process_exporter_list: >-
-              {{ all_process_exporter_names +
+              {{ common_process_exporter_names +
               recorder_process_exporter_names +
               screen_process_exporter_names +
               livemon_process_exporter_names +
