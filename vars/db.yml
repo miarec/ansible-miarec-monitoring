@@ -1,6 +1,4 @@
-db_promtail_scrape_jobs: [
-  {'job_name':'redis', 'path':'/var/log/redis_*/*', },
-]
+db_promtail_scrape_jobs: []
 
 # Define which process to monitor
 db_process_exporter_names: |

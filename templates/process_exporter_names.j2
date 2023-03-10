@@ -1,0 +1,6 @@
+  {% raw %}
+    - comm:
+        {% for item in celery_process_exporter_names, celerybeat_process_exporter_names%}
+        - {item}
+        {% endfor %}
+  {% endraw %}

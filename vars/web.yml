@@ -1,7 +1,10 @@
 ---
 web_promtail_scrape_jobs: [
-  {'job_name':'apache_access', 'path':'/var/log/httpd/error.log', },
-  {'job_name':'apache_error', 'path':'/var/log/httpd/error.log', }
+  {'job_name':'apache_access', 'path':'/var/log/httpd/access.log', },
+  {'job_name':'apache_error', 'path':'/var/log/httpd/error.log', },
+  {'job_name':'apache_ssl_access', 'path':'/var/log/httpd/ssl_access.log', },
+  {'job_name':'apache_ssl_error', 'path':'/var/log/httpd/ssl_error.log', },
+  {'job_name':'apache_ssl_access', 'path':'/var/log/httpd/ssl_request.log', },
 ]
 
 # Define which process to monitor

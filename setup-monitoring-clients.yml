@@ -28,7 +28,7 @@
   become: true
   pre_tasks:
 
-# Set Hsot specific vars
+# Set group specific vars
     - include_vars:
         file: vars/recorder.yml
       when: "'recorder' in group_names"
@@ -68,19 +68,41 @@
 
 
     - set_fact:
-        promtail_scrape_jobs: |
-          {{ recorder_promtail_scrape_jobs +
+        promtail_scrape_jobs: >-
+              {{ recorder_promtail_scrape_jobs +
               screen_promtail_scrape_jobs +
               livemon_promtail_scrape_jobs +
               db_promtail_scrape_jobs +
               redis_promtail_scrape_jobs +
               web_promtail_scrape_jobs +
               celery_promtail_scrape_jobs +
-              celerybeat_promtail_scrape_jobs +
+              celerybeat_promtail_scrape_jobs
               }}
 
     - debug:
         var: promtail_scrape_jobs
+
+    - set_fact:
+        promtail_scrape_jobs: >-
+              {{ recorder_promtail_scrape_jobs +
+              screen_promtail_scrape_jobs +
+              livemon_promtail_scrape_jobs +
+              db_promtail_scrape_jobs +
+              redis_promtail_scrape_jobs +
+              web_promtail_scrape_jobs +
+              celery_promtail_scrape_jobs +
+              celerybeat_promtail_scrape_jobs
+              }}
+
+    - debug:
+        var: promtail_scrape_jobs
+
+
+    - set_fact:
+        process_exporter_names: "{{ lookup('template', 'process_exporter_names.j2') | from_yaml }}"
+
+    - debug:
+        var: process_exporter_names
 
     - name: Update apt cache [Debian].
       apt:

@@ -4,8 +4,5 @@ celerybeat_promtail_scrape_jobs: [
 ]
 
 # Define which process to monitor
-celerybeat_process_exporter_names: |
-  {% raw %}
-    - comm:
-        - celerybeat
-  {% endraw %}
+celerybeat_process_exporter_names:
+  - celerybeat

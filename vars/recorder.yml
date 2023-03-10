@@ -1,5 +1,6 @@
 recorder_promtail_scrape_jobs: [
   {'job_name':'miarec_trace', 'path':'/var/log/miarec/trace/trace.log', },
+  {'job_name':'miarec_error', 'path':'/var/log/miarec/error/errors.log', }
 ]
 
 # Define which process to monitor
