@@ -14,6 +14,10 @@ python_version      = 3.6.10
 redis_version       = 5.0.5
 
 
+promtail_loki_url = "https://loki.example.com"
+node_exporter_listen_port = 9100
+process_exporter_listen_port = 9256
+
 [recorder]
 miarec
 

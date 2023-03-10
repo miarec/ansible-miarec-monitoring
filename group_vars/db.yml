@@ -1,6 +1,10 @@
 ---
 # promtail Scrape jobs, define which log files should be tailed
-promtail_scrape_jobs: [
+# promtail_scrape_jobs: [
+#   {'job_name':'redis', 'path':'/var/log/redis_*/*', },
+# ]
+
+group_promtail_scrape_jobs: [
   {'job_name':'redis', 'path':'/var/log/redis_*/*', },
 ]
 

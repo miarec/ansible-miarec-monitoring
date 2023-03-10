@@ -1,6 +1,10 @@
 ---
 # promtail Scrape jobs, define which log files should be tailed
-promtail_scrape_jobs: [
+# promtail_scrape_jobs: [
+#   {'job_name':'miarec_trace', 'path':'/var/log/miarec/trace/trace.log', },
+# ]
+
+group_promtail_scrape_jobs: [
   {'job_name':'miarec_trace', 'path':'/var/log/miarec/trace/trace.log', },
 ]
 

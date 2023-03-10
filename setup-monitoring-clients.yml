@@ -31,6 +31,7 @@
 
     - set_fact:
         # promtail_loki_url: "{{ hostvars[groups.loki.0].private_ip_address }}:{{ loki_http_listen_port }}"
+        promtail_scrape_jobs: "{{ group_promtail_scrape_jobs | default({})| combine(item) }}"
 
     - name: Update apt cache [Debian].
       apt:
