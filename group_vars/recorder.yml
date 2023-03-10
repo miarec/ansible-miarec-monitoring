@@ -4,17 +4,17 @@
 #   {'job_name':'miarec_trace', 'path':'/var/log/miarec/trace/trace.log', },
 # ]
 
-group_promtail_scrape_jobs: [
-  {'job_name':'miarec_trace', 'path':'/var/log/miarec/trace/trace.log', },
-]
+# group_promtail_scrape_jobs: [
+#   {'job_name':'miarec_trace', 'path':'/var/log/miarec/trace/trace.log', },
+# ]
 
-# Define which process to monitor
-process_exporter_names: |
-  {% raw %}
-    - comm:
-        - node_exporter
-        - process_exporter
-        - promtail
-        - miarec
-        - miarec_screen
-  {% endraw %}
+# # Define which process to monitor
+# process_exporter_names: |
+#   {% raw %}
+#     - comm:
+#         - node_exporter
+#         - process_exporter
+#         - promtail
+#         - miarec
+#         - miarec_screen
+#   {% endraw %}

@@ -10,4 +10,3 @@
 
 - src: https://github.com/miarec/ansible-promtail
   name: miarec.promtail
-  version: 20230309-remote-loki

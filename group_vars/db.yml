@@ -4,17 +4,17 @@
 #   {'job_name':'redis', 'path':'/var/log/redis_*/*', },
 # ]
 
-group_promtail_scrape_jobs: [
-  {'job_name':'redis', 'path':'/var/log/redis_*/*', },
-]
+# group_promtail_scrape_jobs: [
+#   {'job_name':'redis', 'path':'/var/log/redis_*/*', },
+# ]
 
-# Define which process to monitor
-process_exporter_names: |
-  {% raw %}
-    - comm:
-        - node_exporter
-        - process_exporter
-        - promtail
-        - postgresql-*
-        - redis_*
-  {% endraw %}
+# # Define which process to monitor
+# process_exporter_names: |
+#   {% raw %}
+#     - comm:
+#         - node_exporter
+#         - process_exporter
+#         - promtail
+#         - postgresql-*
+#         - redis_*
+#   {% endraw %}

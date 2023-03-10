@@ -1,0 +1,14 @@
+db_promtail_scrape_jobs: [
+  {'job_name':'redis', 'path':'/var/log/redis_*/*', },
+]
+
+# Define which process to monitor
+db_process_exporter_names: |
+  {% raw %}
+    - comm:
+        - node_exporter
+        - process_exporter
+        - promtail
+        - postgresql-*
+        - redis_*
+  {% endraw %}
