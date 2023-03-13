@@ -30,78 +30,82 @@
 
 # Set group specific vars
     - include_vars:
-        file: vars/recorder.yml
-      when: "'recorder' in group_names"
+        file: vars/{{ item }}.yml
+      loop: "{{ group_names }}"
 
-    - include_vars:
-        file: vars/screen.yml
-      when: "'screen' in group_names"
+    # - include_vars:
+    #     file: vars/recorder.yml
+    #   when: "'recorder' in group_names"
 
-    - include_vars:
-        file: vars/livemon.yml
-      when: "'livemon' in group_names"
+    # - include_vars:
+    #     file: vars/screen.yml
+    #   when: "'screen' in group_names"
 
-    - include_vars:
-        file: vars/db.yml
-      when: "'db' in group_names"
+    # - include_vars:
+    #     file: vars/livemon.yml
+    #   when: "'livemon' in group_names"
 
-    - include_vars:
-        file: vars/redis.yml
-      when: "'redis' in group_names"
+    # - include_vars:
+    #     file: vars/db.yml
+    #   when: "'db' in group_names"
 
-    - include_vars:
-        file: vars/livemon.yml
-      when: "'livemon' in group_names"
+    # - include_vars:
+    #     file: vars/redis.yml
+    #   when: "'redis' in group_names"
 
-    - include_vars:
-        file: vars/web.yml
-      when: "'web' in group_names"
+    # - include_vars:
+    #     file: vars/livemon.yml
+    #   when: "'livemon' in group_names"
 
-    - include_vars:
-        file: vars/celery.yml
-      when: "'celery' in group_names"
+    # - include_vars:
+    #     file: vars/web.yml
+    #   when: "'web' in group_names"
 
-    - include_vars:
-        file: vars/celerybeat.yml
-      when: "'celerybeat' in group_names"
+    # - include_vars:
+    #     file: vars/celery.yml
+    #   when: "'celery' in group_names"
 
-    - set_fact:
-        promtail_scrape_jobs: >-
-              {{ common_promtail_scrape_jobs +
-              recorder_promtail_scrape_jobs +
-              screen_promtail_scrape_jobs +
-              livemon_promtail_scrape_jobs +
-              db_promtail_scrape_jobs +
-              redis_promtail_scrape_jobs +
-              web_promtail_scrape_jobs +
-              celery_promtail_scrape_jobs +
-              celerybeat_promtail_scrape_jobs
-              }}
+    # - include_vars:
+    #     file: vars/celerybeat.yml
+    #   when: "'celerybeat' in group_names"
+
+    # - set_fact:
+    #     promtail_scrape_jobs: >-
+    #           {{ common_promtail_scrape_jobs +
+    #           recorder_promtail_scrape_jobs +
+    #           screen_promtail_scrape_jobs +
+    #           livemon_promtail_scrape_jobs +
+    #           db_promtail_scrape_jobs +
+    #           redis_promtail_scrape_jobs +
+    #           web_promtail_scrape_jobs +
+    #           celery_promtail_scrape_jobs +
+    #           celerybeat_promtail_scrape_jobs
+    #           }}
 
     - debug:
         var: promtail_scrape_jobs
 
-    - set_fact:
-        process_exporter_list: >-
-              {{ common_process_exporter_names +
-              recorder_process_exporter_names +
-              screen_process_exporter_names +
-              livemon_process_exporter_names +
-              db_process_exporter_names +
-              redis_process_exporter_names +
-              web_process_exporter_names +
-              celery_process_exporter_names +
-              celerybeat_process_exporter_names
-              }}
+    # - set_fact:
+    #     process_exporter_list: >-
+    #           {{ common_process_exporter_names +
+    #           recorder_process_exporter_names +
+    #           screen_process_exporter_names +
+    #           livemon_process_exporter_names +
+    #           db_process_exporter_names +
+    #           redis_process_exporter_names +
+    #           web_process_exporter_names +
+    #           celery_process_exporter_names +
+    #           celerybeat_process_exporter_names
+    #           }}
 
-    - set_fact:
-        process_exporter_names: |
-          {% raw %}
-            -comm:
-                {% for item in process_exporter_list %}
-                - {{item}}
-                {% endfor %}
-           {% endraw %}
+    # - set_fact:
+    #     process_exporter_names: |
+    #       {% raw %}
+    #         -comm:
+    #             {% for item in process_exporter_list %}
+    #             - {{item}}
+    #             {% endfor %}
+    #        {% endraw %}
 
     - debug:
         var: process_exporter_names
