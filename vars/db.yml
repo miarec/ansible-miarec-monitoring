@@ -1,5 +1,6 @@
+---
 db_promtail_scrape_jobs: []
 
 # Define which process to monitor
 db_process_exporter_names:
-- postgresql-*
+  - postgresql-*

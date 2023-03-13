@@ -62,4 +62,3 @@ celery_process_exporter_names: []
 
 celerybeat_promtail_scrape_jobs: []
 celerybeat_process_exporter_names: []
-

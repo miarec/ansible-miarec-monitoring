@@ -1,8 +1,8 @@
 ---
 livemon_promtail_scrape_jobs: [
-  {'job_name':'livemon', 'path':'/var/log/miarec_livemon/livemon.log', }
+  {'job_name':'livemon', 'path':'/var/log/miarec_livemon/livemon.log'}
 ]
 
 # Define which process to monitor
 livemon_process_exporter_names:
-- miarec_livemon
+  - miarec_livemon

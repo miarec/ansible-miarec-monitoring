@@ -1,6 +1,6 @@
 ---
 celerybeat_promtail_scrape_jobs: [
-  {'job_name':'celerybeat', 'path':'/var/log/miarecweb/celery/beat.log', }
+  {'job_name':'celerybeat', 'path':'/var/log/miarecweb/celery/beat.log'}
 ]
 
 # Define which process to monitor
