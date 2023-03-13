@@ -1,0 +1,48 @@
+[all]
+miarec ansible_connection=local private_ip_address=127.0.0.1
+
+
+[all:vars]
+; -------------------------------
+; Version of installed packages
+; -------------------------------
+miarecweb_version   = x.x.x.x
+miarec_version      = x.x.x.x
+miarec_screen_version = x.x.x.x
+postgresql_version  = 12
+python_version      = 3.6.10
+redis_version       = 5.0.5
+
+
+promtail_loki_url = "https://loki.example.com"
+node_exporter_listen_port = 9100
+process_exporter_listen_port = 9256
+
+[recorder]
+miarec
+
+[screen]
+miarec
+
+[db]
+miarec
+
+[redis]
+miarec
+
+[web]
+miarec
+
+[celery]
+miarec
+
+[celerybeat]
+miarec
+
+
+[prometheus-agent]
+miarec
+
+[prometheus-agent:vars]
+prometheus_write_target = "https://prometheus.example.com"
+

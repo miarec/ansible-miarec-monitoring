@@ -1,0 +1,9 @@
+---
+screen_promtail_scrape_jobs: [
+  {'job_name':'miarec_screen_trace', 'path':'/var/log/miarec_screen/trace/error.log'},
+  {'job_name':'miarec_screen_error', 'path':'/var/log/miarec_screen/error/errors.log'}
+]
+
+# Define which process to monitor
+screen_process_exporter_names:
+  - miarec_screen

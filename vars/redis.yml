@@ -1,0 +1,8 @@
+---
+redis_promtail_scrape_jobs: [
+  {'job_name':'redis', 'path':'/var/log/redis_*/*'},
+]
+
+# Define which process to monitor
+redis_process_exporter_names:
+  - redis_*

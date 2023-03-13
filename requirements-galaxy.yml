@@ -1,25 +1,12 @@
 ---
-- src: https://github.com/miarec/ansible-prometheus
-  name: cloudalchemy.prometheus
-  version: 1440ae7db7d40c749121bfbdec366100d7587bdf
-
-- src: cloudalchemy.grafana
-  version: 0.18.0
-
-- src: geerlingguy.certbot
-  version: 5.0.0
-
-- src: geerlingguy.nginx
-  version: 3.1.0
+- src: https://github.com/miarec/ansible-role-prometheus
+  name: miarec.prometheus
 
 - src: https://github.com/miarec/ansible-process_exporter
   name: miarec.process_exporter
 
 - src: https://github.com/cloudalchemy/ansible-node-exporter
   name: cloudalchemy.node_exporter
-
-- src: https://github.com/miarec/ansible-loki
-  name: miarec.loki
 
 - src: https://github.com/miarec/ansible-promtail
   name: miarec.promtail

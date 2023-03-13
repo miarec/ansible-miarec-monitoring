@@ -1,0 +1,8 @@
+---
+celery_promtail_scrape_jobs: [
+  {'job_name':'celery', 'path':'/var/log/miarecweb/celery/worker*'}
+]
+
+# Define which process to monitor
+celery_process_exporter_names:
+  - celeryd

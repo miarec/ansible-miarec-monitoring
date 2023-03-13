@@ -1,0 +1,3 @@
+---
+prometheus_mode: agent
+prometheus_scrape_configs: "{{ lookup('template', 'prometheus_scrape.j2') | from_yaml }}"
