@@ -1,28 +1,5 @@
 ---
 # ------------------------------------------------
-# Install Prometheus agent
-# ------------------------------------------------
-- name: Install Prometheus Agent.
-  hosts:
-    - prometheus-agent
-  become: true
-  pre_tasks:
-    - include_vars:
-        file: vars/prometheus-agent.yml
-
-    - name: Update apt cache [Debian].
-      apt:
-        update_cache: true
-        cache_valid_time: 600
-      when: ansible_os_family == 'Debian'
-      changed_when: false
-
-  roles:
-    - role: miarec.prometheus
-
-  tags: 'prometheus-agent'
-
-# ------------------------------------------------
 # Install Montioring clients
 # ------------------------------------------------
 - name: Install Monitoring Clients.
@@ -48,5 +25,6 @@
     - role: miarec.promtail
     - role: cloudalchemy.node_exporter
     - role: miarec.process_exporter
+    - role: miarec.prometheus
 
   tags: 'clients'

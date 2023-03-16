@@ -1,4 +1,10 @@
 ---
+prometheus_mode: agent
+prometheus_scrape_configs: "{{ lookup('template', 'prometheus_scrape.j2') | from_yaml }}"
+
+node_exporter_listen_port: 9100
+process_exporter_listen_port: 9256
+
 promtail_scrape_jobs: >-
       {{ common_promtail_scrape_jobs +
       recorder_promtail_scrape_jobs +
