@@ -28,4 +28,3 @@
     - role: miarec.prometheus
 
   tags: 'clients'
-
