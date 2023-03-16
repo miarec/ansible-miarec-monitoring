@@ -10,6 +10,9 @@ The following services will be installed on each service
 ## Variables
  - `prometheus_write_target` defines remote prometheus server, example "https://prometheus.example.com" or "http://1.1.1.1:9090"
  - `promtail_loki_url` defined remote loki server, example "https://loki.example.com" or "http://1.1.1.1:3100"
+
+ - `prometheus_external_labels` hash of labels that will be applied to all metrics sent to remote prometheus
+ - `promtail_external_labels` hash of labels that will be applied to all logs sent to remote loki
  - `common_process_exporter_names` list of processes `process_exporter` should track
 
     example:
