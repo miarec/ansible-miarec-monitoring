@@ -1,11 +1,9 @@
 [all]
 miarec ansible_connection=local private_ip_address=127.0.0.1
 
-
 [all:vars]
 prometheus_write_target = "https://prometheus.example.com"
 promtail_loki_url = "https://loki.example.com"
-
 
 [recorder]
 miarec
