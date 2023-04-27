@@ -18,6 +18,8 @@ promtail_scrape_jobs: >-
       celerybeat_promtail_scrape_jobs
       }}
 
+
+
 process_exporter_list: >-
       {{ common_process_exporter_names +
       recorder_process_exporter_names +
@@ -31,14 +33,14 @@ process_exporter_list: >-
       }}
 
 # this did not render right
-process_exporter_names: |
-    {% raw %}
-      -comm:
-          {% for item in process_exporter_list %}
-          - {{item}}
-          {% endfor %}
-    {% endraw %}
-
+# process_exporter_names: |
+#     {% raw %}
+#       -comm:
+#           {% for item in process_exporter_list %}
+#           - {{item}}
+#           {% endfor %}
+#     {% endraw %}
+process_exporter_names: "{{ lookup('template', 'process_exporter_names.j2') }}"
 
 common_process_exporter_names:
  - promtail
