@@ -4,6 +4,7 @@ prometheus_scrape_configs: "{{ lookup('template', 'prometheus_scrape.j2') | from
 
 node_exporter_listen_port: 9100
 process_exporter_listen_port: 9256
+promtail_http_listen_port: 7080   # Have to use a non default port, tcp 9080 is used by miarec
 
 promtail_scrape_jobs: >-
       {{ common_promtail_scrape_jobs +
@@ -29,14 +30,7 @@ process_exporter_list: >-
       celerybeat_process_exporter_names
       }}
 
-process_exporter_names: |
-    {% raw %}
-      -comm:
-          {% for item in process_exporter_list %}
-          - {{item}}
-          {% endfor %}
-    {% endraw %}
-
+process_exporter_names: "{{ lookup('template', 'process_exporter_names.j2') }}"
 
 common_process_exporter_names:
  - promtail
