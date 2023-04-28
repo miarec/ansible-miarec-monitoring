@@ -8,6 +8,9 @@ promtail_loki_url = "https://loki.example.com"
 prometheus_external_labels = {"host": "{{ hostvars[inventory_hostname].inventory_hostname}}", "static_label": "This is a static label"}
 promtail_external_labels = {{ prometheus_external_labels }}
 
+client_auth_user = EXAMPLE_USER
+client_auth_password = EXAMPLE_PASSWORD
+
 [recorder]
 miarec
 
